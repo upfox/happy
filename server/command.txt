@@ -1,0 +1,15 @@
+yarn init -y
+yarn add express
+yarn add @types/express -D
+yarn add typeorm sqlite3
+# criar no package.json
+scripts:
+    "server": "ts-node-dev src/server.ts --transpile-only --ignore-watch node_modules --respawn",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+
+# Criando a tabela de migração
+yarn typeorm migration:create -n create_orphanages
+# Criar as tabelas
+yarn typeorm migration:run
+# Reverter última migration
+yarn typeorm migration:revert
