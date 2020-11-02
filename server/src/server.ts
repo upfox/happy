@@ -1,48 +1,35 @@
 import express from 'express';
 
-import { getRepository } from 'typeorm';
+import path from 'path';
 
-import Orphanage from './models/Orphanage';
+import cors from 'cors';
 
+import 'express-async-errors';
+/* import { getRepository } from 'typeorm';
+import Orphanage from './models/Orphanage'; */
 import './database/connection';
 
-// import routes from './routes';
+import routes from './routes';
 
-// import './database/connection';
+import errorHandler from './errors/handler';
 
 const app = express();
 
+// app.use(cors({
+//   origin: 'https://localhost/front-end'
+// }));
+
+app.use(cors());
+
 app.use(express.json());
-// app.use(routes);
 
-app.post("/orphanages", async (request, response) =>{
-  const { 
-    name ,
-    latitude,
-    longitude,
-    about,
-    instructions,
-    opening_hours,
-    open_on_weekends
-  } = request.body;
+app.use(routes);
 
-  const orphanagesRepository = getRepository(Orphanage);
+app.use('/uploads', express.static(path.join(__dirname, '..','uploads')));
 
-  const orphanage = orphanagesRepository.create({
-    name ,
-    latitude,
-    longitude,
-    about,
-    instructions,
-    opening_hours,
-    open_on_weekends
-  });
+app.use(errorHandler);
 
-  await orphanagesRepository.save(orphanage);
 
-  return response.json({message:"orfanato"});
-});
-
-app.listen(3333, () => {
+app.listen(`${process.env.SERVER_PORT}`, () => {
   console.log('Server started!');
 });

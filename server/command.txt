@@ -8,8 +8,17 @@ scripts:
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
 
 # Criando a tabela de migração
-yarn typeorm migration:create -n create_orphanages
+yarn typeorm migration:create -n create_orphanages => Sempre que for criar uma tabela | Nível development
 # Criar as tabelas
 yarn typeorm migration:run
 # Reverter última migration
 yarn typeorm migration:revert
+
+yarn add @types/multer -D
+
+# Apresentar erros no sistema
+yarn add express-async-errors   # Tratar errors
+yarn add yup                    # Validação de dados
+    yarn add @types/yup         # Tipagem para Yup
+
+yarn add cors                   # Proteção contra outras aplicações | permite acesso em outras plataformas

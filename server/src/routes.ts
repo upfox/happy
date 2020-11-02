@@ -1,12 +1,24 @@
-/* import { Router } from 'express';
+import { Router } from 'express';
+import multer from 'multer';
+
+import uploadConfig from './config/upload';
+
+import OrphanagesController from './controllers/OrphanagesController';
+ 
 
 const routes = Router();
+const upload = multer(uploadConfig);
 
-routes.get('/orphanages',()=>{
-    console.log('Orfanatos');
-});
-routes.get('/orphanages/:id',()=>{
-    console.log('Orfanatos');
-});
+// MVC
+// Model = Tabela no banco
+// Views = Mostrada
+// Controllers = Como são armazenados
 
-export default routes; */
+// routes.post("/orphanages", async (request, response) =>{
+// });
+routes.get("/orphanages", OrphanagesController.index);
+routes.get("/orphanages/:id", OrphanagesController.show);
+
+routes.post("/orphanages", upload.array('images') ,OrphanagesController.create);
+  
+export default routes;

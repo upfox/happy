@@ -7,7 +7,7 @@ export class createOrphanages1603929589701 implements MigrationInterface {
             name:'orphanages',
             columns:[
                 {
-                    name:'id',
+                    name:'id',  
                     type:'integer',
                     unsigned:true,
                     isPrimary:true,
